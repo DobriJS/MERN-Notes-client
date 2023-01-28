@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row } from 'react-bootstrap';
 import { Note } from '../interfaces/Note';
 import NoteComponent from './NoteComponent';
 import styles from '../styles/NotesContainer.module.css';
@@ -8,7 +8,7 @@ import AddNoteDialog from './AddNoteDialog';
 
 const NotesContainer = () => {
   const [notes, setNotes] = useState<Note[]>([]);
-  const [showAddNoteDialog, setShowAddNoteDialog] = useState(true);
+  const [showAddNoteDialog, setShowAddNoteDialog] = useState(false);
 
   useEffect(() => {
     async function loadNotes() {
@@ -24,6 +24,7 @@ const NotesContainer = () => {
 
   return (
     <Container>
+      <Button onClick={() => setShowAddNoteDialog(true)}>Add new Note</Button>
       <Row xs={1} md={2} xl={3} className='g-4'>
         {notes.map((note) => (
           <Col key={note._id}>
@@ -31,7 +32,9 @@ const NotesContainer = () => {
           </Col>
         ))}
       </Row>
-      {showAddNoteDialog && <AddNoteDialog />}
+      {showAddNoteDialog && (
+        <AddNoteDialog onDismiss={() => setShowAddNoteDialog(false)} />
+      )}
     </Container>
   );
 };

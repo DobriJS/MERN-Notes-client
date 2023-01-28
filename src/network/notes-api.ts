@@ -13,12 +13,12 @@ const fetchData = async (input: RequestInfo, init?: RequestInit) => {
 };
 
 export const fetchNotes = async (): Promise<Note[]> => {
-    const response = await fetchData('/api/notes', { method: 'GET' });
+    const response = await fetchData('http://localhost:4000/api/notes', { method: 'GET' });
     return response.json();
 };
 
 export const createNote = async (note: NoteInput): Promise<Note> => {
-    const response = await fetchData('/api/notes', {
+    const response = await fetchData('http://localhost:4000/api/notes', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
