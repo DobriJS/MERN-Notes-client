@@ -4,6 +4,7 @@ import { Note } from '../interfaces/Note';
 import NoteComponent from './NoteComponent';
 import styles from '../styles/NotesContainer.module.css';
 import * as NotesApi from '../network/notes-api';
+import stylesUtils from '../styles/utils.module.css';
 import AddNoteDialog from './AddNoteDialog';
 
 const NotesContainer = () => {
@@ -24,7 +25,12 @@ const NotesContainer = () => {
 
   return (
     <Container>
-      <Button onClick={() => setShowAddNoteDialog(true)}>Add new Note</Button>
+      <Button
+        className={`mb-4 ${stylesUtils.blockCenter}`}
+        onClick={() => setShowAddNoteDialog(true)}
+      >
+        Add new Note
+      </Button>
       <Row xs={1} md={2} xl={3} className='g-4'>
         {notes.map((note) => (
           <Col key={note._id}>
