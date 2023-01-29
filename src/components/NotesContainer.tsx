@@ -33,7 +33,13 @@ const NotesContainer = () => {
         ))}
       </Row>
       {showAddNoteDialog && (
-        <AddNoteDialog onDismiss={() => setShowAddNoteDialog(false)} />
+        <AddNoteDialog
+          onDismiss={() => setShowAddNoteDialog(false)}
+          onNoteSaved={(newNote) => {
+            setNotes([...notes, newNote]);
+            setShowAddNoteDialog(false);
+          }}
+        />
       )}
     </Container>
   );
