@@ -23,6 +23,16 @@ const NotesContainer = () => {
     loadNotes();
   }, []);
 
+  const deleteNote = async (note: Note) => {
+    try {
+      await NotesApi.deleteNote(note._id);
+      setNotes(notes.filter((existingNote) => existingNote._id !== note._id));
+    } catch (error) {
+      console.error(error);
+      alert(error);
+    }
+  };
+
   return (
     <Container>
       <Button
@@ -34,7 +44,11 @@ const NotesContainer = () => {
       <Row xs={1} md={2} xl={3} className='g-4'>
         {notes.map((note) => (
           <Col key={note._id}>
-            <NoteComponent note={note} className={styles.note} />
+            <NoteComponent
+              note={note}
+              onDeleteNote={deleteNote}
+              className={styles.note}
+            />
           </Col>
         ))}
       </Row>
