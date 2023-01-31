@@ -1,6 +1,8 @@
 import { Note } from '../interfaces/Note';
 import { NoteInput } from '../interfaces/NoteInput';
 
+const localhost = 'http://localhost:4000';
+
 const fetchData = async (input: RequestInfo, init?: RequestInit) => {
     const response = await fetch(input, init);
     if (response.ok) {
@@ -13,14 +15,29 @@ const fetchData = async (input: RequestInfo, init?: RequestInit) => {
 };
 
 export const fetchNotes = async (): Promise<Note[]> => {
-    const response = await fetchData('http://localhost:4000/api/notes', { method: 'GET' });
+    const response = await fetchData(`${localhost}/api/notes`, { method: 'GET' });
     return response.json();
 };
 
 export const createNote = async (note: NoteInput): Promise<Note> => {
-    const response = await fetchData('http://localhost:4000/api/notes', {
+    const response = await fetchData(`${localhost}/api/notes`, {
         method: 'POST',
         headers: {
+            'Content-Type': 'application/json',
+
+        },
+        body: JSON.stringify(note)
+    });
+    return response.json();
+};
+
+export const deleteNote = async (noteId: string) => {
+    return await fetchData(`${localhost}/api/notes/${noteId}`, { method: 'DELETE' });
+};
+
+export const updateNote = async (noteId: string, note: NoteInput): Promise<Note> => {
+    const response = await fetch(`${localhost}/api/notes/${noteId}`, {
+        method: 'PATCH', headers: {
             'Content-Type': 'application/json',
 
         },
