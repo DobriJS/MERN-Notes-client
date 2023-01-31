@@ -34,3 +34,14 @@ export const createNote = async (note: NoteInput): Promise<Note> => {
 export const deleteNote = async (noteId: string) => {
     return await fetchData(`${localhost}/api/notes/${noteId}`, { method: 'DELETE' });
 };
+
+export const updateNote = async (noteId: string, note: NoteInput): Promise<Note> => {
+    const response = await fetch(`${localhost}/api/notes/${noteId}`, {
+        method: 'PATCH', headers: {
+            'Content-Type': 'application/json',
+
+        },
+        body: JSON.stringify(note)
+    });
+    return response.json();
+};

@@ -5,11 +5,12 @@ import NoteComponent from './NoteComponent';
 import styles from '../styles/NotesContainer.module.css';
 import * as NotesApi from '../network/notes-api';
 import stylesUtils from '../styles/utils.module.css';
-import AddNoteDialog from './AddNoteDialog';
+import AddEditNoteDialog from './AddEditNoteDialog';
 
 const NotesContainer = () => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [showAddNoteDialog, setShowAddNoteDialog] = useState(false);
+  const [noteToEdit, setNoteToEdit] = useState<Note | null>(null);
 
   useEffect(() => {
     async function loadNotes() {
@@ -46,18 +47,35 @@ const NotesContainer = () => {
           <Col key={note._id}>
             <NoteComponent
               note={note}
-              onDeleteNote={deleteNote}
               className={styles.note}
+              onNoteClicked={setNoteToEdit}
+              onDeleteNote={deleteNote}
             />
           </Col>
         ))}
       </Row>
       {showAddNoteDialog && (
-        <AddNoteDialog
+        <AddEditNoteDialog
           onDismiss={() => setShowAddNoteDialog(false)}
           onNoteSaved={(newNote) => {
             setNotes([...notes, newNote]);
             setShowAddNoteDialog(false);
+          }}
+        />
+      )}
+      {noteToEdit && (
+        <AddEditNoteDialog
+          noteToEdit={noteToEdit}
+          onDismiss={() => setNoteToEdit(null)}
+          onNoteSaved={(updatedNote) => {
+            setNotes(
+              notes.map((existingNote) =>
+                existingNote._id === updatedNote._id
+                  ? updatedNote
+                  : existingNote
+              )
+            );
+            setNoteToEdit(null);
           }}
         />
       )}
