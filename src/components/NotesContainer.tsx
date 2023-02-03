@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row, Spinner } from 'react-bootstrap';
 import { Note } from '../interfaces/Note';
 import NoteComponent from './NoteComponent';
 import styles from '../styles/NotesContainer.module.css';
@@ -12,13 +12,21 @@ const NotesContainer = () => {
   const [showAddNoteDialog, setShowAddNoteDialog] = useState(false);
   const [noteToEdit, setNoteToEdit] = useState<Note | null>(null);
 
+  const [notesLoading, setNotesLoading] = useState(true);
+  const [showNotesLoadingError, setShowNotesLoadingError] = useState(false);
+
   useEffect(() => {
     async function loadNotes() {
       try {
+        setShowNotesLoadingError(false);
+        setNotesLoading(true);
         const notes = await NotesApi.fetchNotes();
         setNotes(notes);
       } catch (error) {
         console.error(error);
+        setShowNotesLoadingError(true);
+      } finally {
+        setNotesLoading(false);
       }
     }
     loadNotes();
@@ -34,26 +42,38 @@ const NotesContainer = () => {
     }
   };
 
+  const notesGrid = (
+    <Row xs={1} md={2} xl={3} className={`g-4 ${styles.notesGrid}`}>
+      {notes.map((note) => (
+        <Col key={note._id}>
+          <NoteComponent
+            note={note}
+            className={styles.note}
+            onNoteClicked={setNoteToEdit}
+            onDeleteNote={deleteNote}
+          />
+        </Col>
+      ))}
+    </Row>
+  );
+
   return (
-    <Container>
+    <Container className={styles.notesPage}>
       <Button
         className={`mb-4 ${stylesUtils.blockCenter}`}
         onClick={() => setShowAddNoteDialog(true)}
       >
         Add new Note
       </Button>
-      <Row xs={1} md={2} xl={3} className='g-4'>
-        {notes.map((note) => (
-          <Col key={note._id}>
-            <NoteComponent
-              note={note}
-              className={styles.note}
-              onNoteClicked={setNoteToEdit}
-              onDeleteNote={deleteNote}
-            />
-          </Col>
-        ))}
-      </Row>
+      {notesLoading && <Spinner animation='border' variant='primary' />}
+      {showNotesLoadingError && (
+        <p>Something went wrong. Please refresh the page !</p>
+      )}
+      {!notesLoading && !showNotesLoadingError && (
+        <>
+          {notes.length > 0 ? notesGrid : <p>You don't have any notes yet !</p>}
+        </>
+      )}
       {showAddNoteDialog && (
         <AddEditNoteDialog
           onDismiss={() => setShowAddNoteDialog(false)}
