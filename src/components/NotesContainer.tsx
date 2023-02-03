@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Button, Col, Container, Row } from 'react-bootstrap';
+import { Button, Col, Container, Row, Spinner } from 'react-bootstrap';
 import { Note } from '../interfaces/Note';
 import NoteComponent from './NoteComponent';
 import styles from '../styles/NotesContainer.module.css';
@@ -12,13 +12,21 @@ const NotesContainer = () => {
   const [showAddNoteDialog, setShowAddNoteDialog] = useState(false);
   const [noteToEdit, setNoteToEdit] = useState<Note | null>(null);
 
+  const [notesLoading, setNotesLoading] = useState(true);
+  const [showNotesLoadingError, setShowNotesLoadingError] = useState(false);
+
   useEffect(() => {
     async function loadNotes() {
       try {
+        setShowNotesLoadingError(false);
+        setNotesLoading(true);
         const notes = await NotesApi.fetchNotes();
         setNotes(notes);
       } catch (error) {
         console.error(error);
+        setShowNotesLoadingError(true);
+      } finally {
+        setNotesLoading(false);
       }
     }
     loadNotes();
@@ -34,6 +42,21 @@ const NotesContainer = () => {
     }
   };
 
+  const notesGrid = (
+    <Row xs={1} md={2} xl={3} className='g-4'>
+      {notes.map((note) => (
+        <Col key={note._id}>
+          <NoteComponent
+            note={note}
+            className={styles.note}
+            onNoteClicked={setNoteToEdit}
+            onDeleteNote={deleteNote}
+          />
+        </Col>
+      ))}
+    </Row>
+  );
+
   return (
     <Container>
       <Button
@@ -42,18 +65,7 @@ const NotesContainer = () => {
       >
         Add new Note
       </Button>
-      <Row xs={1} md={2} xl={3} className='g-4'>
-        {notes.map((note) => (
-          <Col key={note._id}>
-            <NoteComponent
-              note={note}
-              className={styles.note}
-              onNoteClicked={setNoteToEdit}
-              onDeleteNote={deleteNote}
-            />
-          </Col>
-        ))}
-      </Row>
+      {notesLoading && <Spinner animation='border' variant='primary' />}
       {showAddNoteDialog && (
         <AddEditNoteDialog
           onDismiss={() => setShowAddNoteDialog(false)}
