@@ -66,6 +66,14 @@ const NotesContainer = () => {
         Add new Note
       </Button>
       {notesLoading && <Spinner animation='border' variant='primary' />}
+      {showNotesLoadingError && (
+        <p>Something went wrong. Please refresh the page !</p>
+      )}
+      {!notesLoading && !showNotesLoadingError && (
+        <>
+          {notes.length > 0 ? notesGrid : <p>You don't have any notes yet !</p>}
+        </>
+      )}
       {showAddNoteDialog && (
         <AddEditNoteDialog
           onDismiss={() => setShowAddNoteDialog(false)}
