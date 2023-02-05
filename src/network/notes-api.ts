@@ -1,4 +1,4 @@
-import { Note, User, NoteInputProps, SignUpCredentialsProps } from '../interfaces';
+import { Note, User, NoteInputProps, SignUpCredentialsProps, LogInCredentialsProps } from '../interfaces';
 
 const localhost = 'http://localhost:4000';
 
@@ -18,6 +18,19 @@ export async function signUp(credentials: SignUpCredentialsProps): Promise<User>
         });
     return response.json();
 }
+
+export async function logIn(credentials: LogInCredentialsProps): Promise<User> {
+    const response = await fetchData("/api/users/login",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(credentials),
+        });
+    return response.json();
+}
+
 const fetchData = async (input: RequestInfo, init?: RequestInit) => {
     const response = await fetch(input, init);
     if (response.ok) {
