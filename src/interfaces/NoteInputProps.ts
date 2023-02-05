@@ -1,4 +1,4 @@
-export interface NoteInput {
+export interface NoteInputProps {
     title: string;
     text?: string;
 }

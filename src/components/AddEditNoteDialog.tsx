@@ -2,7 +2,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { AddEditNoteDialogProps } from '../interfaces/AddEditNoteDialogProps';
 import { Note } from '../interfaces/Note';
-import { NoteInput } from '../interfaces/NoteInput';
+import { NoteInput } from '../interfaces/NoteInputProps';
 import * as NotesApi from '../network/notes-api';
 
 const AddEditNoteDialog = ({

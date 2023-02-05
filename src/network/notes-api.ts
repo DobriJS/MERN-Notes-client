@@ -1,8 +1,23 @@
-import { Note } from '../interfaces/Note';
-import { NoteInput } from '../interfaces/NoteInput';
+import { Note, User, NoteInputProps, SignUpCredentialsProps } from '../interfaces';
 
 const localhost = 'http://localhost:4000';
 
+export async function getLoggedInUser(): Promise<User> {
+    const response = await fetchData("/api/users", { method: "GET" });
+    return response.json();
+}
+
+export async function signUp(credentials: SignUpCredentialsProps): Promise<User> {
+    const response = await fetchData("/api/users/signup",
+        {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(credentials),
+        });
+    return response.json();
+}
 const fetchData = async (input: RequestInfo, init?: RequestInit) => {
     const response = await fetch(input, init);
     if (response.ok) {
@@ -19,7 +34,7 @@ export const fetchNotes = async (): Promise<Note[]> => {
     return response.json();
 };
 
-export const createNote = async (note: NoteInput): Promise<Note> => {
+export const createNote = async (note: NoteInputProps): Promise<Note> => {
     const response = await fetchData(`${localhost}/api/notes`, {
         method: 'POST',
         headers: {
@@ -35,7 +50,7 @@ export const deleteNote = async (noteId: string) => {
     return await fetchData(`${localhost}/api/notes/${noteId}`, { method: 'DELETE' });
 };
 
-export const updateNote = async (noteId: string, note: NoteInput): Promise<Note> => {
+export const updateNote = async (noteId: string, note: NoteInputProps): Promise<Note> => {
     const response = await fetch(`${localhost}/api/notes/${noteId}`, {
         method: 'PATCH', headers: {
             'Content-Type': 'application/json',
