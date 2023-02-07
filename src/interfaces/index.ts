@@ -2,4 +2,4 @@ export * from './Note';
 export * from './User';
 export * from './NoteInputProps';
 export * from './SignUpCredentialsProps';
-export * from './LoginCredentialsProps';
+export * from './LogInCredentialsProps';

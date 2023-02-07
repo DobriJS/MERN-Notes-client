@@ -2,7 +2,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { AddEditNoteDialogProps } from '../interfaces/AddEditNoteDialogProps';
 import { Note } from '../interfaces/Note';
-import { NoteInput } from '../interfaces/NoteInputProps';
+import { NoteInputProps } from '../interfaces/NoteInputProps';
 import * as NotesApi from '../network/notes-api';
 
 const AddEditNoteDialog = ({
@@ -14,14 +14,14 @@ const AddEditNoteDialog = ({
     register,
     handleSubmit,
     formState: { errors, isSubmitting }
-  } = useForm<NoteInput>({
+  } = useForm<NoteInputProps>({
     defaultValues: {
       title: noteToEdit?.title || '',
       text: noteToEdit?.text || ''
     }
   });
 
-  async function onSubmit(input: NoteInput) {
+  async function onSubmit(input: NoteInputProps) {
     try {
       let noteResponse: Note;
       if (noteToEdit) {
