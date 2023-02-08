@@ -6,6 +6,8 @@ import styles from '../styles/NotesContainer.module.css';
 import * as NotesApi from '../network/notes-api';
 import stylesUtils from '../styles/utils.module.css';
 import AddEditNoteDialog from './AddEditNoteDialog';
+import SignUpModal from './signup/SignUpModal';
+import LoginModal from './login/LoginModal';
 
 const NotesContainer = () => {
   const [notes, setNotes] = useState<Note[]>([]);
@@ -99,6 +101,12 @@ const NotesContainer = () => {
           }}
         />
       )}
+
+      {false && (
+        <SignUpModal onDismiss={() => {}} onSignUpSuccessful={() => {}} />
+      )}
+
+      {true && <LoginModal onDismiss={() => {}} onLoginSuccessful={() => {}} />}
     </Container>
   );
 };
