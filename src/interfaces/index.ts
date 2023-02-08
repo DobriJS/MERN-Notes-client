@@ -4,3 +4,4 @@ export * from './NoteInputProps';
 export * from './SignUpCredentialsProps';
 export * from './LogInCredentialsProps';
 export * from './TextInputFieldProps';
+export * from './SignUpModalProps';
