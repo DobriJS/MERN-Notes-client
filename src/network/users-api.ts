@@ -20,7 +20,7 @@ export async function signUp(credentials: SignUpCredentialsProps): Promise<User>
 }
 
 export async function logIn(credentials: LogInCredentialsProps): Promise<User> {
-    const response = await fetchData(`${localhost}/api/users/signup`,
+    const response = await fetchData(`${localhost}/api/users/login`,
         {
             method: "POST",
             headers: {
