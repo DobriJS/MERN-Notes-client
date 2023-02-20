@@ -1,6 +1,6 @@
 import { User } from "./User";
 
-export interface NavBarLoggedInView {
+export interface NavBarLoggedInViewProps {
     user: User,
     onLogoutSuccessful: () => void,
 }
