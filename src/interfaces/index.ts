@@ -6,3 +6,4 @@ export * from './LogInCredentialsProps';
 export * from './TextInputFieldProps';
 export * from './SignUpModalProps';
 export * from './LoginModalProps';
+export * from './NavBarProps';
