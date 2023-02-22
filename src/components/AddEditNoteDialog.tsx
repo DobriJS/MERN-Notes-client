@@ -6,11 +6,7 @@ import { Note } from '../interfaces/Note';
 import { NoteInputProps } from '../interfaces/NoteInputProps';
 import * as NotesApi from '../network/notes-api';
 
-const AddEditNoteDialog = ({
-  noteToEdit,
-  onDismiss,
-  onNoteSaved
-}: AddEditNoteDialogProps) => {
+const AddEditNoteDialog = ({ noteToEdit, onDismiss, onNoteSaved }: AddEditNoteDialogProps) => {
   const {
     register,
     handleSubmit,

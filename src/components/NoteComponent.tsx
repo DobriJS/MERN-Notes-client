@@ -5,12 +5,7 @@ import { NoteProps } from '../interfaces/NoteProps';
 import { formatDate } from '../utils/formatDate';
 import { MdDelete } from 'react-icons/md';
 
-const NoteComponent = ({
-  note,
-  className,
-  onNoteClicked,
-  onDeleteNote
-}: NoteProps) => {
+const NoteComponent = ({ note, className, onNoteClicked, onDeleteNote }: NoteProps) => {
   const { title, text, createdAt, updatedAt } = note;
 
   let createdUpdatedText: string;
@@ -21,10 +16,7 @@ const NoteComponent = ({
   }
 
   return (
-    <Card
-      className={`${styles.noteCard} ${className}`}
-      onClick={() => onNoteClicked(note)}
-    >
+    <Card className={`${styles.noteCard} ${className}`} onClick={() => onNoteClicked(note)}>
       <Card.Body className={styles.cardBody}>
         <Card.Title className={styleUtils.flexCenter}>
           {title}{' '}
