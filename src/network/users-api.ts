@@ -1,9 +1,8 @@
 import { User, SignUpCredentialsProps, LogInCredentialsProps } from '../interfaces';
 import { localhost, fetchData } from '../utils/fetchData';
 
-
 export async function getLoggedInUser(): Promise<User> {
-    const response = await fetchData(`${localhost}/api/users`, { method: "GET" });
+    const response = await fetchData(`/api/users`, { method: "GET" });
     return response.json();
 }
 
@@ -20,7 +19,7 @@ export async function signUp(credentials: SignUpCredentialsProps): Promise<User>
 }
 
 export async function logIn(credentials: LogInCredentialsProps): Promise<User> {
-    const response = await fetchData(`${localhost}/api/users/login`,
+    const response = await fetchData(`/api/users/login`,
         {
             method: "POST",
             headers: {
@@ -32,6 +31,6 @@ export async function logIn(credentials: LogInCredentialsProps): Promise<User> {
 }
 
 export async function logout() {
-    await fetchData(`${localhost}/api/users/logout`, { method: "POST" });
+    await fetchData(`/api/users/logout`, { method: "POST" });
 }
 
