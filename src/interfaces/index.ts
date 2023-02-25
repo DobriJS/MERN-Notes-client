@@ -9,3 +9,4 @@ export * from './LoginModalProps';
 export * from './NavBarProps';
 export * from './NavBarLoggedOutViewProps';
 export * from './NavBarLoggedInViewProps';
+export * from './NotesPageProps';
