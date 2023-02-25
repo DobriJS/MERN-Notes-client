@@ -36,29 +36,28 @@ const NotesContainer = () => {
       />
 
       <Container className={styles.notesPage}>
-        <>{loggedInUser ? <NotesPageLoggedInView /> : <NotesPageLoggedOutView />}</>
+        <> {loggedInUser ? <NotesPageLoggedInView /> : <NotesPageLoggedOutView />} </>
       </Container>
-      <>
-        {showSignUpModal && (
-          <SignUpModal
-            onDismiss={() => setShowSignUpModal(true)}
-            onSignUpSuccessful={(user) => {
-              setLoggedInUser(user);
-              setShowSignUpModal(false);
-            }}
-          />
-        )}
 
-        {showLoginModal && (
-          <LoginModal
-            onDismiss={() => setShowLoginModal}
-            onLoginSuccessful={(user) => {
-              setLoggedInUser(user);
-              setShowLoginModal(false);
-            }}
-          />
-        )}
-      </>
+      {showSignUpModal && (
+        <SignUpModal
+          onDismiss={() => setShowSignUpModal(false)}
+          onSignUpSuccessful={(user) => {
+            setLoggedInUser(user);
+            setShowSignUpModal(false);
+          }}
+        />
+      )}
+
+      {showLoginModal && (
+        <LoginModal
+          onDismiss={() => setShowLoginModal(false)}
+          onLoginSuccessful={(user) => {
+            setLoggedInUser(user);
+            setShowLoginModal(false);
+          }}
+        />
+      )}
     </div>
   );
 };
