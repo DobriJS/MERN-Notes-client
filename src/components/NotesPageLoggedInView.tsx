@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Button, Col, Row, Spinner } from 'react-bootstrap';
 import { Note } from '../interfaces';
 import * as NotesApi from '../network/notes-api';
-import stylesUtils from '../styles/utils.module.css';
+import styleUtils from '../styles/utils.module.css';
 import styles from '../styles/NotesContainer.module.css';
 import AddEditNoteDialog from './AddEditNoteDialog';
 import NoteComponent from './NoteComponent';
@@ -59,7 +59,7 @@ const NotesPageLoggedInView = () => {
   return (
     <>
       <Button
-        className={`mb-4 ${stylesUtils.blockCenter}`}
+        className={`mb-4 ${styleUtils.blockCenter}  ${styleUtils.flexCenter}`}
         onClick={() => setShowAddNoteDialog(true)}
       >
         Add new Note
