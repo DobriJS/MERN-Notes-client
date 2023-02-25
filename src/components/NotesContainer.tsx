@@ -40,7 +40,7 @@ const NotesContainer = () => {
         <Container className={styles.pageContainer}>
           <Routes>
             <Route path='/' element={<NotesPage loggedInUser={loggedInUser} />} />
-            <Route path='/privacy' element={<Contacts />} />
+            <Route path='/contacts' element={<Contacts />} />
             <Route path='/*' element={<NotFoundPage />} />
           </Routes>
         </Container>
