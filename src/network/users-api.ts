@@ -7,7 +7,7 @@ export async function getLoggedInUser(): Promise<User> {
 }
 
 export async function signUp(credentials: SignUpCredentialsProps): Promise<User> {
-    const response = await fetchData(`${localhost}/api/users/signup`,
+    const response = await fetchData(`/api/users/signup`,
         {
             method: "POST",
             headers: {

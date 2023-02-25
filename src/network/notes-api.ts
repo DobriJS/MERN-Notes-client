@@ -3,12 +3,12 @@ import { localhost, fetchData } from '../utils/fetchData';
 
 
 export const fetchNotes = async (): Promise<Note[]> => {
-    const response = await fetchData(`${localhost}/api/notes`, { method: 'GET' });
+    const response = await fetchData(`/api/notes`, { method: 'GET' });
     return response.json();
 };
 
 export const createNote = async (note: NoteInputProps): Promise<Note> => {
-    const response = await fetchData(`${localhost}/api/notes`, {
+    const response = await fetchData(`/api/notes`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -20,11 +20,11 @@ export const createNote = async (note: NoteInputProps): Promise<Note> => {
 };
 
 export const deleteNote = async (noteId: string) => {
-    return await fetchData(`${localhost}/api/notes/${noteId}`, { method: 'DELETE' });
+    return await fetchData(`}/api/notes/${noteId}`, { method: 'DELETE' });
 };
 
 export const updateNote = async (noteId: string, note: NoteInputProps): Promise<Note> => {
-    const response = await fetch(`${localhost}/api/notes/${noteId}`, {
+    const response = await fetch(`/api/notes/${noteId}`, {
         method: 'PATCH', headers: {
             'Content-Type': 'application/json',
 
